@@ -64,6 +64,7 @@ int partition(int arr[], int low, int high) {
             swap(&arr[i], &arr[j]);
         }
     }
+
     swap(&arr[i+1], &arr[high]);
     return i+1;
 }
@@ -102,7 +103,7 @@ void mergeSort(int arr[], int l, int r) {
 }
 
 void menu() {
-    printf("=================================\n");
+    printf("\n=================================\n");
     printf("   SORTING ALGORITHMS MENU\n");
     printf("=================================\n");
     printf("1. Bubble Sort\n");
@@ -117,6 +118,8 @@ void menu() {
 int main() {
     int original[SIZE], arr[SIZE];
     int choice;
+    clock_t start, end;
+    double time_taken;
 
     srand(time(0));
     generateArray(original, SIZE);
@@ -131,6 +134,8 @@ int main() {
             printf("\nOriginal Array:\n");
             printArray(arr, 500);
 
+            start = clock();
+
             switch(choice) {
                 case 1: bubbleSort(arr, SIZE); break;
                 case 2: selectionSort(arr, SIZE); break;
@@ -139,8 +144,14 @@ int main() {
                 case 5: mergeSort(arr, 0, SIZE-1); break;
             }
 
+            end = clock();
+
+            time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+
             printf("Sorted Array:\n");
-            printArray(arr,500);
+            printArray(arr, 500);
+
+            printf("Time taken: %.6f miliseconds\n", time_taken*1000);
         }
 
         else if(choice != 6)
